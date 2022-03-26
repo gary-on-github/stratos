@@ -56,7 +56,7 @@ source ~/.profile
 
 ./stchaind init $node_id
 
-wget https://raw.githubusercontent.com/stratosnet/stratos-chain-testnet/main/tropos-2/genesis.json
+wget https://raw.githubusercontent.com/stratosnet/stratos-chain-testnet/main/tropos-3/genesis.json
 wget https://raw.githubusercontent.com/stratosnet/stratos-chain-testnet/main/config.toml
 
 mv config.toml $HOME/.stchaind/config/
