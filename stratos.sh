@@ -68,12 +68,9 @@ mv genesis.json $HOME/.stchaind/config/
 
 sed -i "s/"node"/$node_id/g" "$HOME/.stchaind/config/config.toml"
 
-./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  
 
 cd $HOME
-
 echo '{ "height": "0", "round": "0", "step": 0 }' > .stchaind/data/priv_validator_state.json
-
 rm -rf .stchaind/data/*.db .stchaind/data/*.wal
 rm .stchaind/config/addrbook.json .stchaind/config/write-*
 
@@ -81,7 +78,9 @@ peers="2739ed930330f59732bc1c0917fee1009d34a7ca@35.84.99.66:26656,07d6c296261f3c
 
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.stchaind/config/config.toml
 more ~/.stchaind/config/config.toml | grep 'persistent_peers'
-sudo systemctl restart stchaind
+
+./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  
+echo "Please make a note of your mnemonic and press enter once to continue"
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/stratos.service
 [Unit]
