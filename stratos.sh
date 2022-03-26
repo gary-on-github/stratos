@@ -30,7 +30,7 @@ options=(
 function node_install  { 
 sudo apt upgrade -y < "/dev/null"
 sudo apt install git build-essential snapd --yes
-sudo snap install go --classic -y
+sudo snap install go --classic
 echo 'export GOPATH="$HOME/go"' >> ~/.profile
 echo 'export GOBIN="$GOPATH/bin"' >> ~/.profile
 echo 'export PATH="$GOBIN:$PATH"' >> ~/.profile
