@@ -46,8 +46,8 @@ echo 'export node_id='$wallet_name >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 cd "$HOME" || exit
-wget https://github.com/stratosnet/stratos-chain/releases/download/v0.6.2/stchaincli
-wget https://github.com/stratosnet/stratos-chain/releases/download/v0.6.2/stchaind
+wget https://github.com/stratosnet/stratos-chain/releases/download/v0.7.0/stchaincli
+wget https://github.com/stratosnet/stratos-chain/releases/download/v0.7.0/stchaind
 sudo chmod +x stchaincli
 sudo chmod +x stchaind
 
