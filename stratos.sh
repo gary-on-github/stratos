@@ -29,7 +29,6 @@ options=(
 
 function node_install  { 
 
-sudo apt install mc jq curl build-essential git wget -y
 sudo rm -rf /usr/local/go
 curl https://dl.google.com/go/go1.17.linux-amd64.tar.gz | sudo tar -C /usr/local -zxvf -
 
