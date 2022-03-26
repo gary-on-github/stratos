@@ -47,7 +47,7 @@ echo 'Your node ID is : ' $node_id
 echo 'export node_id='$node_id >> $HOME/.bash_profile
 read -p "Please enter your wallet name : " wallet_name
 echo 'Your wallet name is : ' $wallet_name
-echo 'export node_id='$wallet_name >> $HOME/.bash_profile
+echo 'export wallet_name='$wallet_name >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 cd "$HOME" || exit
