@@ -32,7 +32,6 @@ function node_install  {
 export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
 sudo -E apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade
-sudo -E apt-get -qy autoclean
 
 
 sudo apt install mc jq curl build-essential git wget -y
