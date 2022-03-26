@@ -1,6 +1,7 @@
 #!/bin/bash
 # Testnets.io
 sudo apt update -y < "/dev/null"
+echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 sudo apt install curl -y < "/dev/null"
 title="Stratos Manager"
 version="Version 1.0"
