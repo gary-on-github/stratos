@@ -29,14 +29,19 @@ options=(
 
 function node_install  { 
 sudo apt upgrade -y < "/dev/null"
-sudo apt install git build-essential snapd --yes
-sudo snap install go --classic
-echo 'export GOPATH="$HOME/go"' >> ~/.profile
-echo 'export GOBIN="$GOPATH/bin"' >> ~/.profile
-echo 'export PATH="$GOBIN:$PATH"' >> ~/.profile
-source ~/.profile
-sleep 1
+sudo apt install mc jq curl build-essential git wget -y
+sudo rm -rf /usr/local/go
+curl https://dl.google.com/go/go1.17.linux-amd64.tar.gz | sudo tar -C /usr/local -zxvf -
 
+cat <<'EOF' >>$HOME/.profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+EOF
+
+source $HOME/.profile
+sleep 1
 read -p "Please enter your node ID: " node_id
 echo 'Your node ID is : ' $node_id
 echo 'export node_id='$node_id >> $HOME/.bash_profile
