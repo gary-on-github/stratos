@@ -71,13 +71,10 @@ sed -i "s/"node"/$node_id/g" "$HOME/.stchaind/config/config.toml"
 
 cd $HOME
 echo '{ "height": "0", "round": "0", "step": 0 }' > .stchaind/data/priv_validator_state.json
-rm -rf .stchaind/data/*.db .stchaind/data/*.wal
-rm .stchaind/config/addrbook.json .stchaind/config/write-*
 
-peers="2739ed930330f59732bc1c0917fee1009d34a7ca@35.84.99.66:26656,07d6c296261f3cf1b0a6d3b0355f168a02cd8f72@135.0.61.6:26656,d3d3526cea4b509624f4353b10eef3f6e7677a19@18.116.249.76:26656,90c18307c235c456ebdc127b98de503b30994599@54.189.208.239:26656,a97214289b659dca9db98963959bde117851b485@52.194.30.100:26656"
+peers="a97214289b659dca9db98963959bde117851b485@52.194.30.100:26656,92c6a339999d0ab972698f6c28b69dd134c3a834@75.119.146.247:26656,90c18307c235c456ebdc127b98de503b30994599@54.189.208.239:26656"
 
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.stchaind/config/config.toml
-more ~/.stchaind/config/config.toml | grep 'persistent_peers'
 
 ./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  
 echo "Please make a note of your mnemonic and press enter once to continue"
