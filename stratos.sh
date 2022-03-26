@@ -77,6 +77,9 @@ peers="a97214289b659dca9db98963959bde117851b485@52.194.30.100:26656,92c6a339999d
 
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.stchaind/config/config.toml
 
+routable_ip="$(hostname -I | cut -d " " -f 2)"
+sed -i.bak -e "s/^external_address *=.*/external_address = \"tcp:\/\/\[$routable_ip]:26656\"/" ~/.stchaind/config/config.toml
+
 ./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  
 echo "Please make a note of your mnemonic and press enter once to continue"
 
