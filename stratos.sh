@@ -28,7 +28,13 @@ options=(
 )
 
 function node_install  { 
-sudo apt upgrade -y < "/dev/null"
+
+export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_PRIORITY=critical
+sudo -E apt-get -qy -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" upgrade
+sudo -E apt-get -qy autoclean
+
+
 sudo apt install mc jq curl build-essential git wget -y
 sudo rm -rf /usr/local/go
 curl https://dl.google.com/go/go1.17.linux-amd64.tar.gz | sudo tar -C /usr/local -zxvf -
