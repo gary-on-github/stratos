@@ -21,6 +21,7 @@ prompt='Select:'
 options=(
     "Stratos Testnet Installation IPV4"
     "Stratos Testnet Installation IPV6"
+    "Create Wallet & Start Server"
     "Check Wallet"
     "Node Status"
     "Journalctl"
@@ -81,8 +82,6 @@ sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.stcha
 routable_ip="$(curl ifconfig.me)"
 sed -i.bak -e "s/^external_address *=.*/external_address = \"tcp:\/\/\[$routable_ip]:26656\"/" ~/.stchaind/config/config.toml
 
-./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  >> keyoutput
-
 sudo tee <<EOF >/dev/null /etc/systemd/system/stratos.service
 [Unit]
 Description=Stratos Chain Node
@@ -102,12 +101,6 @@ EOF
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
 EOF
-
-sudo systemctl restart systemd-journald
-sudo systemctl daemon-reload
-sudo systemctl enable stratos.service
-sudo systemctl start stratos.service
-echo "Stratos Testnet Instalation has Finished & Started"
 
 }
 
@@ -163,9 +156,6 @@ sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.stcha
 routable_ip="$(hostname -I | cut -d " " -f 2)"
 sed -i.bak -e "s/^external_address *=.*/external_address = \"tcp:\/\/\[$routable_ip]:26656\"/" ~/.stchaind/config/config.toml
 
-./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  >> keyoutput 
-echo "Please make a note of your mnemonic and press enter once to continue"
-
 sudo tee <<EOF >/dev/null /etc/systemd/system/stratos.service
 [Unit]
 Description=Stratos Chain Node
@@ -186,15 +176,14 @@ sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
 EOF
 
-sudo systemctl restart systemd-journald
-sudo systemctl daemon-reload
-sudo systemctl enable stratos.service
-sudo systemctl start stratos.service
-echo "Stratos Testnet Instalation has Finished & Started"
 
 }
 
-
+function create_wallet   { 
+source $HOME/.bash_profile
+./stchaincli keys add $wallet_name --hd-path "m/44'/606'/0'/0/0" --keyring-backend=test  
+sleep 10
+}
 
 function check_wallet   { 
 cd "$HOME" || exit
@@ -216,9 +205,11 @@ echo "stratos Service Stoped"
 sleep 1
 }
 function start_stratos_service   { 
+sudo systemctl restart systemd-journald
+sudo systemctl daemon-reload
+sudo systemctl enable stratos.service
 sudo systemctl start stratos.service
-echo "Stratos Service Started"
-sleep 1
+echo "Stratos Testnet Instalation has Finished & Started"
 }
 function quit          { 
   echo -e "Exiting ... " ; exit 
@@ -236,12 +227,13 @@ function show_menu {
     case $REPLY in 
        1 ) node_install             ; break ;;
        2 ) node_install6            ; break ;;
-       3 ) check_wallet             ; break ;;
-       4 ) node_status              ; break ;;
-       5 ) check_journalctl         ; break ;;
-       6 ) stop_stratos_service     ; break ;;
-       7 ) start_stratos_service    ; break ;;
-       8 ) quit                     ; break ;;
+       3 ) create_wallet            ; break ;;
+       4 ) check_wallet             ; break ;;
+       5 ) node_status              ; break ;;
+       6 ) check_journalctl         ; break ;;
+       7 ) stop_stratos_service     ; break ;;
+       8 ) start_stratos_service    ; break ;;
+       9 ) quit                     ; break ;;
        * ) not_option               ; break ;;
     esac
   done
