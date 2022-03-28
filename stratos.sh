@@ -21,7 +21,7 @@ prompt='Select:'
 options=(
     "Stratos Testnet Installation IPV4"
     "Stratos Testnet Installation IPV6"
-    "Create Wallet & Start Server"
+    "Create Wallet NOTE RUN START STRATOS SERVER AFTER THIS COMMAND AND DONT FORGET TO TAKE A NOTE OF MNUMONIC"
     "Check Wallet"
     "Node Status"
     "Journalctl"
