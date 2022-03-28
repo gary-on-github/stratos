@@ -102,6 +102,10 @@ sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
 EOF
 
+sudo systemctl restart systemd-journald
+sudo systemctl daemon-reload
+sudo systemctl enable stratos.service
+
 }
 
 function node_install6  { 
@@ -176,6 +180,9 @@ sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
 EOF
 
+sudo systemctl restart systemd-journald
+sudo systemctl daemon-reload
+sudo systemctl enable stratos.service
 
 }
 
@@ -205,9 +212,6 @@ echo "stratos Service Stoped"
 sleep 1
 }
 function start_stratos_service   { 
-sudo systemctl restart systemd-journald
-sudo systemctl daemon-reload
-sudo systemctl enable stratos.service
 sudo systemctl start stratos.service
 echo "Stratos Testnet Instalation has Finished & Started"
 }
